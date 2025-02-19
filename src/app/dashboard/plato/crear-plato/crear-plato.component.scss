@@ -1,0 +1,23 @@
+.addContainer {
+    padding: 20px;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-close-button {
+    cursor: pointer;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .auth-spinner {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

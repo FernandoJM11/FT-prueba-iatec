@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Lista de Platos</h2>
+  
+    <div class="toolbar">
+      <button mat-button color="primary" (click)="create()">Nuevo Plato</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilters($event)" placeholder="Ingrese el nombre del plato">
+      </mat-form-field>
+    </div>
+  
+    <table mat-table [dataSource]="paginado" class="mat-elevation-z8">
+      <ng-container matColumnDef="Nº">
+        <th mat-header-cell *matHeaderCellDef> Nº </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{ element.nombre }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Precio">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let element"> {{ element.precio | currency }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Habilitado">
+        <th mat-header-cell *matHeaderCellDef> Habilitado </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]="element.habilitado" (change)="enablePlato(element.id)">
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="editar(element.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="nombreColumnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: nombreColumnas;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  

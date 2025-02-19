@@ -1,0 +1,75 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <div class="modal-about">
+            {{ data.estado ? 'Editar Plato' : 'Nuevo Plato' }}
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="close()" class="modal-close-button" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="form" (ngSubmit)="register(form.value)">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" required>
+              <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                Nombre Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Descripción</mat-label>
+              <textarea matInput formControlName="descripcion" required></textarea>
+              <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
+                Descripción Requerida
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Precio</mat-label>
+              <input matInput type="number" formControlName="precio" required>
+              <mat-error *ngIf="form.get('precio')?.hasError('required')">
+                Precio Requerido
+              </mat-error>
+              <mat-error *ngIf="form.get('precio')?.hasError('min')">
+                El precio no puede ser negativo
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Categoría</mat-label>
+              <mat-select formControlName="categoriaId" required>
+                <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                  {{ categoria.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('categoriaId')?.hasError('required')">
+                Categoría Requerida
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row">
+              <button [disabled]="!form.valid || loading" [class.auth-spinner]="loading" mat-raised-button color="primary" type="submit">
+                Guardar
+              </button>
+              <button type="button" color="warn" mat-raised-button data-dismiss="dialogRef" tabindex="-1" (click)="close()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
